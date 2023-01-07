@@ -16,3 +16,10 @@ TEST(CheckStructure, CanAddStudentToDb){
     EXPECT_TRUE(db.add(nuno));
     EXPECT_FALSE(db.add(nuno));
 };
+
+TEST(DisplayDb, DisplayEmptyDb) {
+  Database db;
+  auto content = db.show();
+  auto expected = "";
+  EXPECT_EQ(content, expected);
+}
