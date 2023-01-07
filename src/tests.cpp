@@ -2,7 +2,12 @@
 #include "database.hpp"
 #include "student.hpp"
 
-TEST(CheckStructure, CanAddStudentToDb){
+struct DatabaseTest : ::testing::Test
+{
+  Database db;
+};
+
+TEST_F(DatabaseTest, CanAddStudentToDb){
   Student nuno{
     "Nuno",
     "Maualuno",
@@ -12,13 +17,11 @@ TEST(CheckStructure, CanAddStudentToDb){
     Gender::Male
     };
 
-    Database db;
     EXPECT_TRUE(db.add(nuno));
     EXPECT_FALSE(db.add(nuno));
 };
 
-TEST(DisplayDb, DisplayEmptyDb) {
-  Database db;
+TEST_F(DatabaseTest, DisplayEmptyDb) {
   auto content = db.show();
   auto expected = "";
   EXPECT_EQ(content, expected);
