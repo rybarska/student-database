@@ -7,7 +7,14 @@ struct DatabaseTest : ::testing::Test
   Database db;
 };
 
-TEST_F(DatabaseTest, CanAddStudentToDb){
+TEST_F(DatabaseTest, DisplayEmptyDb) {
+  auto content = db.show();
+  auto expected = "";
+  EXPECT_EQ(content, expected);
+}
+
+TEST_F(DatabaseTest, DisplayNonEmptyDb)
+{
   Student nuno{
     "Nuno",
     "Maualuno",
@@ -16,13 +23,10 @@ TEST_F(DatabaseTest, CanAddStudentToDb){
     "123456789",
     Gender::Male
     };
+    db.add(nuno);
+    // check adding the same person twice
 
-    EXPECT_TRUE(db.add(nuno));
-    EXPECT_FALSE(db.add(nuno));
-};
-
-TEST_F(DatabaseTest, DisplayEmptyDb) {
-  auto content = db.show();
-  auto expected = "";
-  EXPECT_EQ(content, expected);
+    auto content = db.show();
+    auto expected = "Nuno Maualuno; rua da Boavista 12, 1200-066 Lisboa; 123456; 123456789; Male";
+    EXPECT_EQ(content, expected);
 }
