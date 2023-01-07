@@ -1,9 +1,12 @@
 cmake_minimum_required(VERSION 3.14)
 project(student-database)
-add_executable(${PROJECT_NAME} src/main.cpp src/database.cpp src/student.cpp)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(SOURCES
+  src/database.cpp
+  src/student.cpp)
+set(FLAGS -Wall -Wextra -Wpedantic -std=c++20)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -14,9 +17,12 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-enable_testing()
+add_executable(${PROJECT_NAME} ${SOURCES} src/main.cpp)
+target_compile_options(${PROJECT_NAME} PRIVATE ${FLAGS})
 
-add_executable(${PROJECT_NAME}-ut src/tests.cpp src/database.cpp src/student.cpp)
+enable_testing()
+add_executable(${PROJECT_NAME}-ut ${SOURCES} src/tests.cpp)
+target_compile_options(${PROJECT_NAME}-ut PRIVATE ${FLAGS})
 target_link_libraries(${PROJECT_NAME}-ut GTest::gtest_main)
 
 include(GoogleTest)
