@@ -1,0 +1,43 @@
+// [START declaration]
+syntax = "proto3";
+// Namespace
+package experiments;
+// [END declaration]
+
+// [START service]
+// The experiments service definition.
+service Simulation {
+  rpc DoLHS (SetupRequest) returns (AllValuesReply) {}
+}
+// [END service]
+
+// [START messages]
+// The request message contains experiment id, number of samples, parameter value range (minrange, maxrange), and parameter names (x1 to x5).
+message SetupRequest {
+  int32 id = 1;
+  int32 samples = 2;
+  int32 minrange = 3;
+  int32 maxrange = 4;
+  string x1name = 5;
+  string x2name = 6;
+  string x3name = 7;
+  string x4name = 8;
+  string x5name = 9;
+}
+
+// The response message for a single sample contains sample id, input parameter values (x1 to x5), and output value (y).
+message OutputValueReply {
+  int32 id = 1;
+  int32 x1 = 2;
+  int32 x2 = 3;
+  int32 x3 = 4;
+  int32 x4 = 5;
+  int32 x5 = 6;
+  int32 y1 = 7;
+}
+
+// The response message for all samples
+message AllValuesReply {
+  repeated OutputValueReply allValuesReply = 1;
+}
+// [END messages]
