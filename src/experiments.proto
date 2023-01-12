@@ -16,8 +16,8 @@ service Simulation {
 message SetupRequest {
   int32 id = 1;
   int32 samples = 2;
-  int32 minrange = 3;
-  int32 maxrange = 4;
+  double minrange = 3;
+  double maxrange = 4;
   string x1name = 5;
   string x2name = 6;
   string x3name = 7;
@@ -28,15 +28,15 @@ message SetupRequest {
 // The response message for a single sample contains sample id, input parameter values (x1 to x5), and output value (y).
 message OutputValueReply {
   int32 id = 1;
-  int32 x1 = 2;
-  int32 x2 = 3;
-  int32 x3 = 4;
-  int32 x4 = 5;
-  int32 x5 = 6;
-  int32 y1 = 7;
+  double x1 = 2;
+  double x2 = 3;
+  double x3 = 4;
+  double x4 = 5;
+  double x5 = 6;
+  double y1 = 7;
 }
 
-// The response message for all samples
+// The response message for all samples (pooled together).
 message AllValuesReply {
   repeated OutputValueReply allValuesReply = 1;
 }
